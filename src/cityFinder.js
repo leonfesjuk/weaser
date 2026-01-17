@@ -12,7 +12,15 @@ export async function cityFinder(cityName) {
             const search = cityName.toLowerCase();
             return cityLowerCase.includes(search);
         })
-        .map(item => item.name);
+        .map(item => ({
+            name: item.name,
+            lon: item.coord.lon,
+            lat: item.coord.lat,
+            country: item.country,
+            population: item.stat?.population || 0,
+
+
+        })).sort((a, b) => b.population - a.population);
 
     return cityNames;
 }
